@@ -52,15 +52,7 @@ body{
     display: none;
 }
 
-.button-container{
-    background-color: aliceblue;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .game-button{
     font-size: 30px;
@@ -72,8 +64,8 @@ body{
 }
 
 img{
-    height: 200px;
-    width: 160px;
+    height: 140px;
+    width: 100px;
 }
   
 
@@ -81,12 +73,17 @@ img{
     display: none;
 }
 
+
+/* 카드  */
+
 .memory-game{
-    width: 80%;
-    height: 1000px;
+    width: 400px;
+    height: 600px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    perspective: 1000px;
+    margin-bottom: 100px;
 }
 
 .memory-card{
@@ -96,7 +93,11 @@ img{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
+
 
 .memory-card:hover{
     cursor: pointer;
@@ -106,5 +107,11 @@ img{
 .front, .back{
     border-radius: 20px;
     position: absolute;
+    backface-visibility: hidden;
 }
 
+.front{
+}
+
+.back{
+}

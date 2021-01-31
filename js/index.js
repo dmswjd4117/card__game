@@ -4,7 +4,6 @@ const scoreBoard = document.querySelector(".score");
 const failBoard = document.querySelector(".fail");
 const btnContainer = document.querySelector(".button-container");
 const startBtn = document.querySelector(".game-button");
-
 class GameManger{
     constructor(){
         this.final = 0;
@@ -40,6 +39,7 @@ class GameManger{
         }).then(()=>{
             // n초후 클릭이벤트 더하기
             this.addClickEvent();
+            this.addFlipEvent();
         })
     }
 
@@ -49,7 +49,6 @@ class GameManger{
 
         Array.from(backCard).forEach(element => {
             element.addEventListener("click", (event)=>{
-                element.classList.add("hidden");
                 const response = manger.clickBackCard(element);
                 if(response && response.success){
                     console.log("성공")
@@ -64,7 +63,7 @@ class GameManger{
                     console.log("실패",this.finalFail, this.fail)
                     failBoard.innerHTML = `${this.finalFail}/${this.fail}`;
                     if(this.finalFail == this.fail){
-                        alert("실패하였습니다..")
+                        alert(`실패`)
                         window.location.reload();
                     }
                 }
@@ -77,17 +76,26 @@ class GameManger{
             })
         })
     }
+
+    addFlipEvent(){
+        const cards = document.querySelectorAll(".memory-card");
+        cards.forEach((card)=>{
+            card.addEventListener("click",(event)=>{
+                card.style.transform =  "rotateY(180deg)";
+            })
+            card.children[0].style.transform = "rotateY(180deg)";
+        })
+    }
 }
 
 
 
 const gameManger = new GameManger();
 
-
 startBtn.addEventListener("click", (event)=>{
     console.log(btnContainer)
     btnContainer.id = "btn-hidden";
+
     gameManger.init();
-    alert(`${gameManger.final}번 성공해야하고\n${gameManger.finalFail}번 기회가 있습니다`)
     gameManger.gameStart();
 })

@@ -45,8 +45,7 @@ class CardManger {
     makeAnswerCards(){
         this.frontCards = []
         this.num = this.makeRandomNum(1, 3);
-        
-        console.log(this.num+"카드 만들었다")
+
         this.cards.forEach((elem, index)=>{
             if(elem === this.num){
                 this.frontCards.push(index)
@@ -57,20 +56,22 @@ class CardManger {
 
     // front카드 보여주기 (back카드 숨기기)
     showFrontCard(){
+        const image_number = this.makeRandomNum(1,17);
+        const image_number2 = this.makeRandomNum(1,4);
+        const image_number3 = this.makeRandomNum(1,4);
         Array.from(frontCard).forEach(element => {
             const ID = parseInt(element.parentNode.id);
             if(this.frontCards.includes(ID)){
-                element.style.backgroundColor = this.colors[0];
+                element.src = `./img/${image_number}.jpeg`
             }else if(ID % 2 == 0){
-                element.style.backgroundColor = this.colors[1];
+                element.src = `./img2/${image_number2}.jpeg`
             }else{
-                element.style.backgroundColor = this.colors[2];
+                element.src = `./img3/${image_number3}.jpeg`
             }
         });
 
         Array.from(backCard).forEach(element => {
             const ID = parseInt(element.parentNode.id);
-            // console.log(ID , this.frontCards)
             if(this.frontCards.includes(ID)){
                 element.classList.add("hidden")
             }
@@ -79,7 +80,6 @@ class CardManger {
         
     // front카드 숨기기 (back카드 보여주기)
     hideFrontCard(){
-        console.log("front카드 숨기기 (back카드 보여주기)")
         Array.from(backCard).forEach(element => {
             element.classList.remove("hidden")
         });
@@ -93,12 +93,6 @@ class CardManger {
 
         if(this.userArray.length == this.frontCards.length){
             const flag = this.compareArrays(this.userArray, this.frontCards);
-            setTimeout(()=>{
-                Array.from(backCard).forEach((element,index) => {
-                    element.classList.remove("hidden")
-                });
-            }, 1000)
-
             if(flag){
                 this.userArray = [];
                 return { success : true };
@@ -118,13 +112,12 @@ class CardManger {
         }
     }
 
-
     // 카드 노드 만들기
     makeCard(i){
         const card = `
         <div id=${i} class="memory-card">
-            <img class="front"> <img/>
-            <img class="back" src="../img/back.jpg"/>
+            <img class="front"/>
+            <img class="back" src="./img/back.jpg"/>
         </div>
         `
         return card;
