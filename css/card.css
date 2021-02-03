@@ -66,6 +66,7 @@ body{
 img{
     height: 140px;
     width: 100px;
+    margin: 10px;
 }
   
 
@@ -78,12 +79,12 @@ img{
 
 .memory-game{
     width: 400px;
-    height: 600px;
+    height: 750px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
     perspective: 1000px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .memory-card{
