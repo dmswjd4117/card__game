@@ -1,9 +1,7 @@
 class Make {
-    // sart ~ end 사이의 랜덤 숫자 리턴
     makeRandomNum(start, end) {
         return Math.ceil(Math.random() * (end - start)) + start;
     }
-    // 카드 노드 만들기
     makeCard(i) {
         const card = `
             <div id=${i} class="memory-card">
@@ -13,7 +11,6 @@ class Make {
             `;
         return card;
     }
-    // front카드 이미지
     makeFrontCard(frontCards) {
         const image_number = this.makeRandomNum(1, 17);
         const image_number2 = this.makeRandomNum(1, 4);
@@ -41,10 +38,9 @@ class CardManger {
         this.cards = [];
         this.frontCards = [];
         this.userArray = [];
-        this.colors = ["yellow", "black", "red", "brown"];
         this.num = 0;
+        this.max_num = 0;
     }
-    // 배열 섞기
     shuffleCards(array) {
         for (let i = 0; i < array.length - 1; i++) {
             let j = Math.floor(Math.random() * (i + 1));
@@ -54,18 +50,15 @@ class CardManger {
         }
         return array;
     }
-    init() {
-        // 카드들 초기화
-        this.cards = this.shuffleCards([1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3]);
-        this.colors = this.shuffleCards(this.colors);
-        // 정답 카드 초기화
+    init(max_num, array) {
+        this.max_num = max_num;
+        this.cards = this.shuffleCards(array);
         this.initAnswer();
-        // 카드 화면에 표시하기
         this.paintCards();
     }
     initAnswer() {
         this.frontCards = [];
-        this.num = this.make.makeRandomNum(1, 3);
+        this.num = this.make.makeRandomNum(1, this.max_num);
         this.cards.forEach((elem, index) => {
             if (elem === this.num) {
                 this.frontCards.push(index);
@@ -81,7 +74,6 @@ class CardManger {
         }
         this.make.makeFrontCard(this.frontCards);
     }
-    // front카드 보여주기 (back카드 숨기기)
     showFrontCard() {
         const backCard = document.getElementsByClassName("back");
         Array.from(backCard).forEach(element => {
@@ -93,14 +85,12 @@ class CardManger {
             }
         });
     }
-    // front카드 숨기기 (back카드 보여주기)
     hideFrontCard() {
         const backCard = document.getElementsByClassName("back");
         Array.from(backCard).forEach(element => {
             element.classList.remove("hidden");
         });
     }
-    // 유저가 back 카드를 클릭하면 정답인지 아닌지
     clickBackCard(element) {
         if (!element.parentElement)
             return { err: 'element"s parent node is undefined' };
@@ -121,7 +111,6 @@ class CardManger {
         }
         return { success: true, message: 'push' };
     }
-    // 카드 지우기
     removeAllCards() {
         const backCard = document.getElementsByClassName("back");
         Array.from(backCard).forEach((element, index) => {
@@ -131,7 +120,6 @@ class CardManger {
         });
     }
 }
-// 배열 비교하기
 function compareArrays(arr1, arr2) {
     const sortedArray1 = arr1.sort();
     const sortedArray2 = arr2.sort();
@@ -140,3 +128,4 @@ function compareArrays(arr1, arr2) {
     });
 }
 export { CardManger };
+//# sourceMappingURL=card.js.map

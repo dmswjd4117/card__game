@@ -16,10 +16,6 @@ html{
 /* https://stackoverflow.com/questions/45536537/centering-in-css-grid */
 body{
     background-color: rgb(0, 0, 0);
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
     height: 100%;
     width: 100%;
     display: flex;
@@ -63,11 +59,6 @@ body{
     transform: scale(1.05);
 }
 
-img{
-    height: 140px;
-    width: 100px;
-    margin: 10px;
-}
   
 
 .hidden{
@@ -79,16 +70,23 @@ img{
 
 .memory-game{
     width: 400px;
-    height: 750px;
+    background-color: rgba(134, 139, 143, 0.514);
+    height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    /* grid-template-rows: 1fr 1fr 1fr 1fr; */
     perspective: 1000px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+
+img{
+    height: 120px;
+    width: 80px;
+    margin: 10px;
 }
 
 .memory-card{
-    margin: 20px;
     position: relative;
     transition: 0.2s ease-in-out;
     display: flex;

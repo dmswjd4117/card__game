@@ -44,14 +44,14 @@ class CardManger {
     cards: number[];
     frontCards: number[];
     userArray: number[];
-    colors: string[];
     num: number;
+    max_num:number;
     constructor(){
         this.cards = [];
         this.frontCards = [];
         this.userArray = [];
-        this.colors = ["yellow", "black", "red", "brown"]
         this.num = 0;
+        this.max_num = 0;
     }
 
     // 배열 섞기
@@ -65,10 +65,10 @@ class CardManger {
         return array;
     }
 
-    init(){
+    init(max_num:number, array:number[]){
+        this.max_num = max_num;
         // 카드들 초기화
-        this.cards = this.shuffleCards([1,1,1,1,2,2,2,2,3,3,3,3]);
-        this.colors = this.shuffleCards(this.colors);
+        this.cards = this.shuffleCards(array);
         // 정답 카드 초기화
         this.initAnswer();
         // 카드 화면에 표시하기
@@ -78,7 +78,7 @@ class CardManger {
 
     initAnswer(){
         this.frontCards = []
-        this.num = this.make.makeRandomNum(1, 3);
+        this.num = this.make.makeRandomNum(1, this.max_num);
 
         this.cards.forEach((elem, index)=>{
             if(elem === this.num){
