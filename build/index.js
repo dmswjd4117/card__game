@@ -1,9 +1,14 @@
+import  { CardManger } from './card.js'
+
+
 const frontCard = document.getElementsByClassName("front");
 const backCard = document.getElementsByClassName("back");
 const scoreBoard = document.querySelector(".score");
 const failBoard = document.querySelector(".fail");
 const btnContainer = document.querySelector(".button-container");
 const startBtn = document.querySelector(".game-button");
+
+
 class GameManger{
     constructor(){
         this.final = 0;
@@ -39,7 +44,6 @@ class GameManger{
         }).then(()=>{
             // n초후 클릭이벤트 더하기
             this.addClickEvent();
-            this.addFlipEvent();
         })
     }
 
@@ -50,7 +54,17 @@ class GameManger{
         Array.from(backCard).forEach(element => {
             element.addEventListener("click", (event)=>{
                 const response = manger.clickBackCard(element);
-                if(response && response.success){
+                if(response.err){
+                    console.log(response.err)
+                    return;
+                }
+
+                if(response.success && response.message){
+                    this.addFlipEvent();
+                    return;
+                }
+                
+                if(response.success){
                     console.log("성공")
                     this.currentScore += 1;
                     scoreBoard.innerHTML = `${this.final}/${this.currentScore}`;
@@ -58,21 +72,21 @@ class GameManger{
                         alert("성공하였습니다!")
                         window.location.reload();
                     }
-                }else if(response){
+                }else{
                     this.fail += 1;
-                    console.log("실패",this.finalFail, this.fail)
+                    console.log("실패")
                     failBoard.innerHTML = `${this.finalFail}/${this.fail}`;
                     if(this.finalFail == this.fail){
                         alert(`실패`)
                         window.location.reload();
                     }
                 }
-                if(response){
-                    setTimeout(() => {
-                        manger.removeAllCards();
-                        this.gameStart();
-                    }, 1200);
-                }
+
+                setTimeout(() => {
+                    this.cardManger.userArray = [];
+                    manger.removeAllCards();
+                    this.gameStart();
+                }, 400);
             })
         })
     }
@@ -99,3 +113,4 @@ startBtn.addEventListener("click", (event)=>{
     gameManger.init();
     gameManger.gameStart();
 })
+
