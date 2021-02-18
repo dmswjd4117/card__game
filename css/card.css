@@ -51,6 +51,7 @@ body{
 
 
 .game-button{
+    margin: 20px;
     font-size: 30px;
     color: black;
 }
@@ -69,20 +70,20 @@ body{
 /* 카드  */
 
 .memory-game{
-    width: 400px;
+    width: 500px;
     background-color: rgba(134, 139, 143, 0.514);
-    height: 100%;
+    height: 70%;
     display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr; */
-    /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: "1fr 1fr 1fr 1fr 1fr";
     perspective: 1000px;
     margin-bottom: 20px;
 }
 
 
 img{
-    height: 120px;
-    width: 80px;
+    height: 100px;
+    width: 70px;
     margin: 10px;
 }
 

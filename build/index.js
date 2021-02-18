@@ -7,7 +7,6 @@ const failBoard = document.querySelector(".fail");
 const btnContainer = document.querySelector(".button-container");
 const startBtn = document.querySelector(".game-button");
 
-
 class GameManger{
     constructor(){
         this.final = 0;
@@ -31,8 +30,6 @@ class GameManger{
         const manger = this.cardManger;
 
         manger.init(4, [1,1,1,2,2,3,3,3,2,2,3,3,4,4,4]);
-        document.querySelector('.memory-game').style.gridTemplateColumns="1fr 1fr 1fr"
-        document.querySelector('.memory-game').style.gridTemplateRows="1fr 1fr 1fr 1fr 1fr"
 
         new Promise((resolve, reject)=>{
             // front카드 보여주기
@@ -108,16 +105,12 @@ class GameManger{
 
 const gameManger = new GameManger();
 
-// startBtn.addEventListener("click", (event)=>{
-//     console.log(btnContainer)
-//     btnContainer.id = "btn-hidden";
+startBtn.addEventListener("click", (event)=>{
+    console.log(btnContainer)
+    btnContainer.id = "btn-hidden";
 
-//     gameManger.init();
-//     gameManger.gameStart();
-// })
+    gameManger.init();
+    gameManger.gameStart();
+})
 
-btnContainer.id = "btn-hidden";
-
-gameManger.init()
-gameManger.gameStart();
 
