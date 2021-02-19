@@ -1,93 +1,120 @@
-import { CardManger } from './card.js';
+import  { CardManger } from './card.js'
+
+
 const backCard = document.getElementsByClassName("back");
-const scoreBoard = document.querySelector(".score");
-const failBoard = document.querySelector(".fail");
-const btnContainer = document.querySelector(".button-container");
-const startBtn = document.querySelector(".game-button");
-class GameManger {
-    constructor() {
+const scoreBoard = document.querySelector(".score")!;
+const failBoard = document.querySelector(".fail")!;
+const btnContainer = document.querySelector(".button-container")!;
+const startBtn = document.querySelector(".game-button")!;
+
+class GameManger{
+    private final: number
+    private currentScore: number
+    private finalFail: number
+    private fail: number
+    private cardManger: CardManger
+
+    constructor(){
         this.final = 0;
         this.currentScore = 0;
         this.finalFail = 0;
         this.fail = 0;
-        this.cardManger = new CardManger();
+        this.cardManger = new CardManger(); 
     }
-    init() {
+
+    init(){
+        // 점수 초기화
         this.final = 4;
         this.currentScore = 0;
         this.finalFail = 3;
         this.fail = 0;
         scoreBoard.innerHTML = `${this.final}/${this.currentScore}`;
-        failBoard.innerHTML = `${this.finalFail}/${this.fail}`;
+        failBoard.innerHTML = `${this.finalFail}/${this.fail}`
     }
-    gameStart() {
+
+    gameStart(){
         const manger = this.cardManger;
-        manger.init(4, [1, 1, 1, 2, 2, 3, 3, 3, 2, 2, 3, 3, 4, 4, 4]);
-        new Promise((resolve, reject) => {
+
+        manger.init(4, [1,1,1,2,2,3,3,3,2,2,3,3,4,4,4]);
+
+        new Promise((resolve, reject)=>{
             manger.showFrontCard();
-            setTimeout(() => {
+            setTimeout(()=>{
                 manger.hideFrontCard();
                 resolve("success!");
             }, 2000);
-        }).then(() => {
+        }).then(()=>{
+            // n초후 클릭이벤트 더하기
             this.addClickEvent();
-        });
+        })
     }
-    addClickEvent() {
+
+
+    addClickEvent(){
         const manger = this.cardManger;
+
         Array.from(backCard).forEach(element => {
-            element.addEventListener("click", (event) => {
+            element.addEventListener("click", (event)=>{
                 const response = manger.clickBackCard(element);
-                console.log(response);
-                if (response.err) {
-                    console.log(response.err);
+                console.log(response)
+                if(response.err){
+                    console.log(response.err)
                     return;
                 }
-                if (response.success && response.message) {
+
+                if(response.success && response.message){
                     this.addFlipEvent();
                     return;
                 }
-                if (response.success) {
-                    console.log("성공");
+                
+                if(response.success){
+                    console.log("성공")
                     this.currentScore += 1;
                     scoreBoard.innerHTML = `${this.final}/${this.currentScore}`;
-                    if (this.final == this.currentScore) {
-                        alert("성공하였습니다!");
+                    if(this.final == this.currentScore){
+                        alert("성공하였습니다!")
                         window.location.reload();
                     }
-                }
-                else {
+                }else{
                     this.fail += 1;
-                    console.log("실패");
+                    console.log("실패")
                     failBoard.innerHTML = `${this.finalFail}/${this.fail}`;
-                    if (this.finalFail == this.fail) {
-                        alert(`실패하였습니다!`);
+                    if(this.finalFail == this.fail){
+                        alert(`실패하였습니다!`)
                         window.location.reload();
                     }
                 }
+
                 setTimeout(() => {
                     this.cardManger.userArray = [];
                     manger.removeAllCards();
                     this.gameStart();
                 }, 400);
-            });
-        });
+            })
+        })
     }
-    addFlipEvent() {
+
+    addFlipEvent(){
         const cards = document.querySelectorAll(".memory-card");
-        cards.forEach((card) => {
-            card.addEventListener("click", (event) => {
+        cards.forEach((card)=>{
+            card.addEventListener("click",(event)=>{
                 card.setAttribute('style', 'transform  : rotateY(180deg);');
-            });
+            })
             card.children[0].setAttribute('style', 'transform  : rotateY(180deg);');
-        });
+        })
     }
 }
+
+
+
 const gameManger = new GameManger();
-startBtn.addEventListener("click", (event) => {
-    console.log(btnContainer);
+
+startBtn.addEventListener("click", (event)=>{
+    console.log(btnContainer)
     btnContainer.id = "btn-hidden";
+
     gameManger.init();
     gameManger.gameStart();
-});
-//# sourceMappingURL=index.js.map
+})
+
+

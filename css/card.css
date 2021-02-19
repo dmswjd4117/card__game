@@ -71,7 +71,6 @@ body{
 
 .memory-game{
     width: 500px;
-    background-color: rgba(134, 139, 143, 0.514);
     height: 70%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -81,9 +80,9 @@ body{
 }
 
 
-img{
-    height: 100px;
-    width: 70px;
+img, .memory-card{
+    height: 140px;
+    width: 140px;
     margin: 10px;
 }
 
